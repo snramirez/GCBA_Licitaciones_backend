@@ -1,0 +1,29 @@
+{
+  "name": "gcba_licitaciones_backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon src/index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/snramirez/GCBA_Licitaciones_backend.git"
+  },
+  "author": "Ramirez Simon Nahuel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/snramirez/GCBA_Licitaciones_backend/issues"
+  },
+  "homepage": "https://github.com/snramirez/GCBA_Licitaciones_backend#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "express": "^4.17.3",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.2.8",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.15"
+  }
+}
