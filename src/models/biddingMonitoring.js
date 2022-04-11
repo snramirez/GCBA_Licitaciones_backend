@@ -7,6 +7,7 @@ const biddingMonitoringSchema = new Schema({
     RecordBAC: {type: String},
     Bidding: {type: String},
     Responsable: {type: String},
+    Division: {type: String},
     BiddingType: {type: String},        
     OfficialBudget: {type: String},
     Status: {type: String},
