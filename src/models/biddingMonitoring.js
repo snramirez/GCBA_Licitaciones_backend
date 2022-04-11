@@ -33,5 +33,5 @@ const biddingMonitoringSchema = new Schema({
 },
 {timestamps: true});
 
-const biddingMonitoring = mongoose.model('Ticket', biddingMonitoringSchema);
+const biddingMonitoring = mongoose.model('biddingMonitoring', biddingMonitoringSchema);
 module.exports = biddingMonitoring;

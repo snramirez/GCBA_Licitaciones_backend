@@ -19,6 +19,8 @@ ctrl.index = async (req, res) => {
 
 ctrl.create = async (req, res) => {
     let reqBidding = req.body.bidding;
+    console.log("🚀 ~ file: bidding.js ~ line 22 ~ ctrl.create= ~ reqBidding", reqBidding)
+    
     
     let bid = new Bidding({
         BiddingNumber: reqBidding.BiddingNumber,
@@ -26,6 +28,7 @@ ctrl.create = async (req, res) => {
         RecordBAC: reqBidding.RecordBAC,
         Bidding: reqBidding.Bidding,
         Responsable: reqBidding.Responsable,
+        Division: reqBidding.Division,
         BiddingType: reqBidding.BiddingType,        
         OfficialBudget: reqBidding.OfficialBudget,
         Status: reqBidding.Status,
