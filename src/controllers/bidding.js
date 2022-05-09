@@ -19,6 +19,7 @@ ctrl.index = async (req, res) => {
 
 ctrl.create = async (req, res) => {
     let reqBidding = req.body.bidding;
+    console.log(req.body); 
     console.log("🚀 ~ file: bidding.js ~ line 22 ~ ctrl.create= ~ reqBidding", reqBidding)
     
     

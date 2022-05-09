@@ -20,7 +20,7 @@ ctrl.statusDate = async (req, res) => {
         res.status(200).json(biddings);
     }
     catch (err) {
-        console.log(err);
+        console.log(err); 
     }
 
 };
