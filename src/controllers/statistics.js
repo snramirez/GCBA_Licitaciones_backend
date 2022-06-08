@@ -25,6 +25,33 @@ ctrl.statusDate = async (req, res) => {
 
 };
 
+ctrl.biddingType = async (req, res) => {
+    let startDate = req.query.startDate;
+    let finishDate = req.query.finishDate;
+
+    try{
+        // let biddings = await Bidding.find({firstPG: {$gte: startDate, $lte: finishDate}})
+        let biddings = await Bidding.aggregate([
+            {$match:{
+                FirstPG:{$lte: finishDate, $gte: startDate}
+            }},
+            {$group:{
+                _id: '$BiddingType', total: {$sum: 1}
+            }}
+        ]).exec()
+        console.log("🚀 ~ file: statistics.js ~ line 11 ~ ctrl.statusDate= ~ biddings", biddings)
+        if(biddings.length === 0){
+            res.status(200).json({Error: 'No hay licitaciones'})
+            return
+        }
+        res.status(200).json(biddings);
+    }
+    catch (err) {
+        console.log(err); 
+    }
+
+};
+
 ctrl.create = async (req, res) => {
 
 

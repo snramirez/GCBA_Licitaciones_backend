@@ -8,6 +8,7 @@ const statistics = require('../controllers/statistics');
 */
 
 router.get('/statusDate', statistics.statusDate);
+router.get('/biddingType', statistics.biddingType);
 router.post('/add', statistics.create);
 
 module.exports = router; 
