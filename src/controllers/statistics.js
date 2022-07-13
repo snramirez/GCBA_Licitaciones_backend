@@ -28,6 +28,9 @@ ctrl.statusDate = async (req, res) => {
 ctrl.biddingType = async (req, res) => {
     let startDate = new Date(req.query.startDate);
     let finishDate = new Date(req.query.finishDate);
+    console.log(startDate);
+    console.log(finishDate);
+    
 
     try{
         // let biddings = await Bidding.find({ContractDate: {$gte: startDate, $lte: finishDate}})
