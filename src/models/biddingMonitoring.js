@@ -18,7 +18,7 @@ const biddingMonitoringSchema = new Schema({
     CallDate: {type: Date},
     BidOpeningDate: {type: Date},
     BidQuantity: {type: String},
-    PreAdjudgmentActDate: {type: String},
+    PreAdjudgmentActDate: {type: Date},
     PreAdjudgmentActNumber: {type: String},
     SecondPG: {type: Date},
     SecondLapPG: {type: Date},
