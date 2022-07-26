@@ -13,6 +13,7 @@ router.get('/statusCount', statistics.statusCount);
 router.get('/contractor', statistics.contractor);
 router.get('/budget', statistics.budget);
 
+
 router.post('/add', statistics.create);
 
 module.exports = router; 
