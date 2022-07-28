@@ -111,6 +111,12 @@ ctrl.contractor = async (req, res) => {
     }
 };
 
+//Recibe un contratista y un rango de fechas, y devuelve todos los pliegos de ese contratista en el rango especificado
+//Input: Contractor and Date range
+//Output: Array of bidding
+ctrl.biddingByContractor = async (req, res) => {
+}
+
 //Recibe un rango de presupuesto y un tipo de presupuesto (oficial o monto adjudicado) y devuelve los pliegos que cumplen ese rango
 //Input: Budget Range
 //Output: Array of bidding
