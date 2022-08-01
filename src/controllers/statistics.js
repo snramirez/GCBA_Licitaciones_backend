@@ -115,6 +115,21 @@ ctrl.contractor = async (req, res) => {
 //Input: Contractor and Date range
 //Output: Array of bidding
 ctrl.biddingByContractor = async (req, res) => {
+    let contractor = req.query.contractor;
+    let startDate = req.query.startDate;
+    let finishDate = req.query.finishDate;
+
+    try{
+        let biddings = await Bidding.find({Contractor: contractor, ContractDate: {$gte: startDate, $lte: finishDate}}).exec()
+        if(biddings.length === 0){
+            res.status(200).json({Error: 'No hay licitaciones'})
+            return
+        }
+        res.status(200).json(biddings);
+    }
+    catch (err) {
+        console.log(err); 
+    }
 }
 
 //Recibe un rango de presupuesto y un tipo de presupuesto (oficial o monto adjudicado) y devuelve los pliegos que cumplen ese rango
@@ -123,6 +138,9 @@ ctrl.biddingByContractor = async (req, res) => {
 ctrl.budget = async (req, res) => {
     let botBudget = req.query.botBudget;
     let topBudget = req.query.topBudget;
+    let startDate = req.query.startDate;
+    let finishDate = req.query.finishDate;
+    
     let query = {}
     if(req.query.budgetType == 'OfficialBudget'){
         query = {
@@ -136,7 +154,7 @@ ctrl.budget = async (req, res) => {
     }
 
     try{
-        let biddings = await Bidding.find({OfficialBudget: {$gte: botBudget, $lte: topBudget}}).exec()
+        let biddings = await Bidding.find({ContractDate: {$gte: startDate, $lte: finishDate}, OfficialBudget: {$gte: botBudget, $lte: topBudget}}).exec()
         console.log("🚀 ~ file: statistics.js ~ line 11 ~ ctrl.statusDate= ~ biddings", biddings)
         if(biddings.length === 0){
             res.status(200).json({Error: 'No hay licitaciones'})

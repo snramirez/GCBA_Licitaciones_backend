@@ -66,4 +66,20 @@ ctrl.create = async (req, res) => {
 
 };
 
+ctrl.addMany = async (req, res) => {
+    manyBidding = req.body.biddings
+    console.log(manyBidding)
+
+    manyBidding.forEach(async element => {
+        try {
+            await new Bidding(element).save()
+        } 
+        catch (error) {
+            console.log(error)
+        }
+    });
+
+    res.status(200).json({Msj: 'todo salio bien'})
+}
+
 module.exports = ctrl;

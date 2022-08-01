@@ -11,6 +11,7 @@ router.get('/statusDate', statistics.statusDate);
 router.get('/biddingType', statistics.biddingType);
 router.get('/statusCount', statistics.statusCount);
 router.get('/contractor', statistics.contractor);
+router.get('/biddingByContractor', statistics.biddingByContractor);
 router.get('/budget', statistics.budget);
 
 
