@@ -14,7 +14,7 @@ ctrl.statusDate = async (req, res) => {
     let finishDate = req.query.finishDate;
 
     try{
-        let biddings = await Bidding.find({Status: status, ContractDate: {$gte: startDate, $lte: finishDate}}).exec()
+        let biddings = await Bidding.find({Status: status, CallDate: {$gte: startDate, $lte: finishDate}}).exec()
         if(biddings.length === 0){
             res.status(200).json({Error: 'No hay licitaciones'})
             return
