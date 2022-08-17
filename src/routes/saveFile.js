@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const bidding = require('../controllers/saveFile');
+const saveFile = require('../controllers/saveFile');
 
 /*
     Prefijo de las rutas:
