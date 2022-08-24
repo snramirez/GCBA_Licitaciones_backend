@@ -3,7 +3,8 @@ const Schema = mongoose.Schema;
 
 const contractorSchema = new Schema({
     Name: {type: String},
-    Cuit: {type: String}
+    Cuit: {type: String, unique: true},
+    Active:{type: Boolean, default: true}
 },
 {timestamps:true})
 
