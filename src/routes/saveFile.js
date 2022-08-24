@@ -7,8 +7,11 @@ const saveFile = require('../controllers/saveFile');
     /api/save
 */
 
-router.post('/', saveFile.saveType);
-// router.post('/add', saveFile.create);
-// router.post('/addMany', saveFile.addMany);
+router.get('/type', saveFile.getType);
+router.post('/type/save', saveFile.saveType);
+router.post('/type/delete', saveFile.deleteType);
+router.get('/status', saveFile.getStatus);
+router.post('/status/save', saveFile.saveStatus);
+router.post('/status/delete', saveFile.deleteStatus);
 
 module.exports = router;
