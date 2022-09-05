@@ -20,7 +20,7 @@ ctrl.getType = (req, res) => {
 ctrl.saveType = (req, res) => {
 
     try {
-        fs.appendFileSync(path.join(__dirname,'..','data','biddingtypes.txt'),  req.query.type + '\r\n' );
+        fs.appendFileSync(path.join(__dirname,'..','data','biddingtypes.txt'),  req.query.data + '\r\n' );
         res.status(200).json()
     }
     catch (error) {
@@ -32,7 +32,7 @@ ctrl.saveType = (req, res) => {
 ctrl.deleteType = (req, res) => {
     try {
         let types = fs.readFileSync(path.join(__dirname,'..','data','biddingtypes.txt'), 'utf8').toString().split("\r\n")
-        let newTypes = types.filter(type => (type !== req.query.type && type !== ''));
+        let newTypes = types.filter(type => (type !== req.query.data && type !== ''));
         let typesFIlter = '';
         newTypes.forEach(type => {
             typesFIlter = typesFIlter.concat(type + "\r\n")
@@ -64,7 +64,7 @@ ctrl.getStatus = (req, res) => {
 ctrl.saveStatus = (req, res) => {
 
     try {
-        fs.appendFileSync(path.join(__dirname,'..','data','biddingStatus.txt'),  req.query.status + '\r\n' );
+        fs.appendFileSync(path.join(__dirname,'..','data','biddingStatus.txt'),  req.query.data + '\r\n' );
         res.status(200).json()
     }
     catch (error) {
@@ -76,7 +76,7 @@ ctrl.saveStatus = (req, res) => {
 ctrl.deleteStatus = (req, res) => {
     try {
         let status = fs.readFileSync(path.join(__dirname,'..','data','biddingStatus.txt'), 'utf8').toString().split("\r\n")
-        let newStatus = status.filter(elemnent => (elemnent !== req.query.status && elemnent !== ''));
+        let newStatus = status.filter(elemnent => (elemnent !== req.query.data && elemnent !== ''));
         let statusFIltered = '';
         newStatus.forEach(elemnent => {
             statusFIltered = statusFIltered.concat(elemnent + "\r\n")

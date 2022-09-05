@@ -28,7 +28,7 @@ ctrl.create = async (req, res) => {
 };
 
 ctrl.edit = async (req, res) => {
-    
+    console.log(req.body)
     try {
         let savedContractor = await Contractor.findByIdAndUpdate(req.body.id, req.body.data, {new: true}).exec()    
         res.status(200).json(savedContractor)
