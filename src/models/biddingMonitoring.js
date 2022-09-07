@@ -17,7 +17,10 @@ const biddingMonitoringSchema = new Schema({
     FirstLapPG: {type: Date},
     CallDate: {type: Date},
     BidOpeningDate: {type: Date},
-    BidQuantity: {type: String},
+    BidQuantity: [
+        {type: Schema.Types.ObjectId, ref: 'contractor'},
+        {type: Schema.Types.Decimal128}
+    ],
     PreAdjudgmentActDate: {type: Date},
     PreAdjudgmentActNumber: {type: String},
     SecondPG: {type: Date},
