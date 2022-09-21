@@ -72,6 +72,10 @@ ctrl.create = async (req, res) => {
 
 };
 
+ctrl.edit = async (req, res) => {
+    
+},
+
 ctrl.addMany = async (req, res) => {
     manyBidding = req.body.biddings
     console.log(manyBidding)
