@@ -9,6 +9,7 @@ const bidding = require('../controllers/bidding');
 
 router.get('/', bidding.index);
 router.post('/add', bidding.create);
+router.post('/edit', bidding.edit);
 router.post('/addMany', bidding.addMany);
 
 module.exports = router;
