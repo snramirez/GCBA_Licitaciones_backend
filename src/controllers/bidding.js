@@ -4,13 +4,14 @@ const Bidding = require('../models/biddingMonitoring');
 
 ctrl.index = async (req, res) => {
     try{
-        let biddings = await Bidding.find().populate({
-            path: 'BidQuantity',
-            populate: {
-                path: 'Contractor',
-                model: 'contractor'
-            }
-        }).exec()
+        // let biddings = await Bidding.find().populate({
+        //     path: 'BidQuantity',
+        //     populate: {
+        //         path: 'Contractor',
+        //         model: 'contractor'
+        //     }
+        // }).exec()
+        let biddings = await Bidding.find().exec()
         if(biddings.length === 0){
             res.status(200).json({Error: 'No hay licitaciones'})
             return
