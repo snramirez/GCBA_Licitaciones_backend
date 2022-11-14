@@ -29,7 +29,7 @@ const biddingMonitoringSchema = new Schema({
     ApproveNumber: {type: String},
     ApproveDate: {type: Date},
     AllocatedBudget : {type: Number, get: getPrice, set: setPrice, default: 0},
-    SPO: {type: String},
+    SPO: {type: Number},
     Contractor: {type: Schema.Types.ObjectId, ref: 'contractor'},
     ContractDate: {type: Date},
     ProcedureDays: {type: String},
