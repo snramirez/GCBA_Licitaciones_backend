@@ -26,7 +26,9 @@ ctrl.index = async (req, res) => {
 
 ctrl.create = async (req, res) => {
     let reqBidding = req.body.bidding;
-    console.log(req.body);     
+    console.log(req.body);
+    reqBidding.Contractor == "" ?  delete reqBidding.Contractor : 0 
+    console.log('despues delete', req.body);
     try {
         savedBid = await new Bidding(req.body.bidding).save();
         res.status(200).json(savedBid);
