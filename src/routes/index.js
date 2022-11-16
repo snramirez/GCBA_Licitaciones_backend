@@ -5,6 +5,7 @@ const bidding = require('../routes/biddingRoutes');
 const statistics = require('../routes/statistics');
 const saveFile = require('../routes/saveFile');
 const contractor = require('../routes/contractorRoutes');
+const authRoutes = require('./authRoutes');
 
 
 module.exports = (app) => {
@@ -13,6 +14,7 @@ module.exports = (app) => {
     app.use('/api/statistics', statistics);
     app.use('/api/save', saveFile);
     app.use('/api/contractor', contractor);
+    app.use('/api/auth', authRoutes);
 
     
     app.use(router);
