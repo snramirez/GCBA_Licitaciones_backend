@@ -16,6 +16,7 @@ const biddingMonitoringSchema = new Schema({
     BiddingType: {type: String},        
     OfficialBudget: {type: Number, get: getPrice, set: setPrice, default: 0},
     Status: {type: String},
+    DocumentEntryDate: {type: Date},
     EntryDocumentReview: {type: Date},
     ExitDocumentReview: {type: Date},
     FirstPG: {type: Date},
