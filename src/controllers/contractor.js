@@ -6,7 +6,7 @@ ctrl.index = async (req, res) => {
     try {
         let contractor = await Contractor.find({Active: true});
         if(contractor.length === 0){
-            res.status(200).json({msj: 'lista de contractor vacia'})
+            res.status(200).json([{msj: 'lista de contractor vacia'}])
             return
         }
         res.status(200).json(contractor);

@@ -13,7 +13,8 @@ ctrl.index = async (req, res) => {
         // }).exec()
         let biddings = await Bidding.find().exec()
         if(biddings.length === 0){
-            res.status(200).json({Error: 'No hay licitaciones'})
+            res.status(200).json([{Error: 'No hay licitaciones'}])
+           
             return
         }
         res.status(200).json(biddings);
