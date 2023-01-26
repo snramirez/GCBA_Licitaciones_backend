@@ -11,7 +11,7 @@ ctrl.index = async (req, res) => {
         //         model: 'contractor'
         //     }
         // }).exec()
-        let biddings = await Bidding.find().exec()
+        let biddings = await Bidding.find({Active: true}).exec()
         if(biddings.length === 0){
             res.status(200).json([{Error: 'No hay licitaciones'}])
            
@@ -52,6 +52,18 @@ ctrl.edit = async (req, res) => {
         res.status(400).json({msj: 'Error al editar el pliego'})
     }
 },
+
+ctrl.delete = async (req, res) => {
+    console.log(req.body)
+    try {
+        let savedBidding = await Bidding.findByIdAndUpdate(req.body.id, {Active: false}, {new: true}).exec()
+        res.status(200).json(savedBidding)
+    } 
+    catch (error) {
+        console.log(error)    
+        res.status(400).json({msj: 'Error al borrar el pliego'})
+    }
+}
 
 ctrl.addMany = async (req, res) => {
     manyBidding = req.body.biddings

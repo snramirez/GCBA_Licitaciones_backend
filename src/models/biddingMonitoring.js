@@ -37,6 +37,7 @@ const biddingMonitoringSchema = new Schema({
     ContractDate: {type: Date},
     ProcedureDays: {type: String},
     Observations: {type: String},
+    Active: {type: Boolean, default: true}
 },{timestamps: true});
 
 biddingMonitoringSchema.set('toObject', {getters: true})
