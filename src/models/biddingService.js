@@ -14,6 +14,8 @@ const biddingServiceSchema = new Schema({
     Responsable: {type: String},
     Division: {type: String},
     BiddingType: {type: String},        
+    DirectContractType: {type: String},   //new   
+    DocumentationComplete: {type: Boolean, default: false}, //new
     OfficialBudget: {type: Number, get: getPrice, set: setPrice, default: 0},
     Status: {type: String},
     DocumentEntryDate: {type: Date},
