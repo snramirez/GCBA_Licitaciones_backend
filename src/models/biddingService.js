@@ -43,8 +43,8 @@ const biddingServiceSchema = new Schema({
     SPO: {type: Number},
     Contractor: {type: Schema.Types.ObjectId, ref: 'contractor'},
     ContractDate: {type: Date},
-    BiddingExtension: {type: Boolean, default: false}, //new
-    BiddingExtensionData:{biddingExtensionSchema}, //new
+    Extension: {type: Boolean, default: false}, //new
+    ExtensionData:{biddingExtensionSchema}, //new
     Prorogation: {type: Boolean, default: false}, //new
     ProrogationExpired: {type: Date}, //new
     ProcedureDays: {type: String}, 
