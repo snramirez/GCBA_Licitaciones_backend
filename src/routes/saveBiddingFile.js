@@ -4,7 +4,7 @@ const saveFile = require('../controllers/saveFile');
 
 /*
     Prefijo de las rutas:
-    /api/save
+    /api/saveBidding
 */
 
 router.get('/type', saveFile.getType);

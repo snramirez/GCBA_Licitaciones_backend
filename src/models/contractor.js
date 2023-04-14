@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 const contractorSchema = new Schema({
     Name: {type: String},
     Cuit: {type: String, unique: true},
+    Type: {type: String, enum:['OBRAS', 'SERVICIOS']},
     Active:{type: Boolean, default: true}
 },
 {timestamps:true})

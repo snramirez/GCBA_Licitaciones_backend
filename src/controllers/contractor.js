@@ -3,8 +3,9 @@ const Contractor = require('../models/contractor');
 
 
 ctrl.index = async (req, res) => {
+    console.log(req.query.type)
     try {
-        let contractor = await Contractor.find({Active: true});
+        let contractor = await Contractor.find({Active: true, Type: req.query.type});
         if(contractor.length === 0){
             res.status(200).json([{msj: 'lista de contractor vacia'}])
             return

@@ -4,9 +4,11 @@ const path = require('path');
 const ctrl = {};
 
 ctrl.getType = (req, res) => {  
+    console.log('typeservice')
     try {
         let types = fs.readFileSync(path.join(__dirname,'..','data','biddingServiceTypes.txt'), 'utf8')
         .toString().split("\r\n");
+        console.log(types)
         res.status(200).json(types.filter(type => type !== ''))
     } 
     catch (error) {
@@ -135,3 +137,48 @@ ctrl.deleteDirectContractType = (req, res) => {
     }
 };
 
+ctrl.getHoliday = (req, res) => {  
+    try {
+        let types = fs.readFileSync(path.join(__dirname,'..','data','holidaysService.txt'), 'utf8')
+        .toString().split("\r\n");
+        res.status(200).json(types.filter(type => type !== ''))
+    } 
+    catch (error) {
+        console.log(error)
+        res.status(200).json({msj: 'error al leer el archivo'})
+    }
+    
+};
+
+
+ctrl.saveHoliday = (req, res) => {
+
+    try {
+        fs.appendFileSync(path.join(__dirname,'..','data','holidaysService.txt'),  req.query.data + '\r\n' );
+        res.status(200).json()
+    }
+    catch (error) {
+        console.log(error)
+        res.status(200).json({msj: 'error al leer el archivo'})
+    }
+};
+
+ctrl.deleteHoliday = (req, res) => {
+    try {
+        let types = fs.readFileSync(path.join(__dirname,'..','data','holidaysService.txt'), 'utf8').toString().split("\r\n")
+        let newTypes = types.filter(type => (type !== req.query.data && type !== ''));
+        let typesFIlter = '';
+        newTypes.forEach(type => {
+            typesFIlter = typesFIlter.concat(type + "\r\n")
+        });
+        fs.writeFileSync(path.join(__dirname,'..','data','holidaysService.txt'), typesFIlter);
+        res.status(200).json()
+    } 
+    catch (error) {
+        console.log(error)    
+        res.status(200).json({msj: 'error al leer el archivo'})
+
+    }
+};
+
+module.exports = ctrl;
