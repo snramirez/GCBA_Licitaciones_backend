@@ -44,7 +44,7 @@ const biddingServiceSchema = new Schema({
     Contractor: {type: Schema.Types.ObjectId, ref: 'contractor'},
     ContractDate: {type: Date},
     Extension: {type: Boolean, default: false}, //new
-    ExtensionData:{biddingExtensionSchema}, //new
+    ExtensionData: biddingExtensionSchema, //new
     Prorogation: {type: Boolean, default: false}, //new
     ProrogationExpired: {type: Date}, //new
     ProcedureDays: {type: String}, 
@@ -55,8 +55,11 @@ const biddingServiceSchema = new Schema({
 biddingServiceSchema.set('toObject', {getters: true})
 biddingServiceSchema.set('toJSON', {getters: true})
 
-biddingServiceSchema.set('toObject', {getters: true})
-biddingServiceSchema.set('toJSON', {getters: true})
+bidQuantitySchema.set('toObject', {getters: true})
+bidQuantitySchema.set('toJSON', {getters: true})
+
+biddingExtensionSchema.set('toObject', {getters: true})
+biddingExtensionSchema.set('toJSON', {getters: true})
 
 function getPrice(num){
     return (num/100).toFixed(2)

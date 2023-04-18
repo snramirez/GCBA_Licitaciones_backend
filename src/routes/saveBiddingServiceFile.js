@@ -15,6 +15,10 @@ router.get('/status', saveBiddingServiceFile.getStatus);
 router.post('/status/save', saveBiddingServiceFile.saveStatus);
 router.post('/status/delete', saveBiddingServiceFile.deleteStatus);
 
+router.get('/directContract', saveBiddingServiceFile.getDirectContractType);
+router.post('/directContract/save', saveBiddingServiceFile.saveDirectContractType);
+router.post('/directContract/delete', saveBiddingServiceFile.deleteDirectContractType);
+
 router.get('/holiday', saveBiddingServiceFile.getHoliday);
 router.post('/holiday/save', saveBiddingServiceFile.saveHoliday);
 router.post('/holiday/delete', saveBiddingServiceFile.deleteHoliday);
