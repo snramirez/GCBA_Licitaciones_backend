@@ -47,12 +47,10 @@ bidQuantitySchema.set('toObject', {getters: true})
 bidQuantitySchema.set('toJSON', {getters: true})
 
 function getPrice(num){
-    console.log('getter')
     return (num/100).toFixed(2)
 }
 
 function setPrice(num){
-    console.log('setters')
     return num*100
 }
 

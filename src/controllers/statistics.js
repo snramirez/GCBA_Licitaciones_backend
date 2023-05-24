@@ -14,7 +14,7 @@ ctrl.statusDate = async (req, res) => {
     let finishDate = req.query.finishDate;
 
     try{
-        let biddings = await Bidding.find({Status: status, CallDate: {$gte: startDate, $lte: finishDate}}).exec()
+        let biddings = await Bidding.find({Active: true, Status: status, CallDate: {$gte: startDate, $lte: finishDate}}).exec()
         if(biddings.length === 0){
             res.status(200).json({Error: 'No hay licitaciones'})
             return
@@ -37,12 +37,14 @@ ctrl.biddingType = async (req, res) => {
     try{
         let biddings = await Bidding.aggregate([
             {$match:{
-                ContractDate:{$lte: finishDate, $gte: startDate}
+                ContractDate:{$lte: finishDate, $gte: startDate},
+                Active: true
             }},
             {$group:{
                 _id: '$BiddingType', total: {$sum: 1}
             }}
         ]).exec()
+        console.log(biddings)
         if(biddings.length === 0){
             res.status(200).json({Error: 'No hay licitaciones'})
             return
@@ -65,7 +67,8 @@ ctrl.statusCount = async (req, res) => {
         // let biddings = await Bidding.find({ContractDate: {$gte: startDate, $lte: finishDate}})
         let biddings = await Bidding.aggregate([
             {$match:{
-                CallDate:{$lte: finishDate, $gte: startDate}
+                CallDate:{$lte: finishDate, $gte: startDate},
+                Active:true
             }},
             {$group:{
                 _id: '$Status', total: {$sum: 1}
@@ -121,8 +124,9 @@ ctrl.biddingByContractor = async (req, res) => {
 
     try{
         let biddings = await Bidding.find({Contractor: contractor, ContractDate: {$gte: startDate, $lte: finishDate}}).exec()
+        console.log(biddings)
         if(biddings.length === 0){
-            res.status(200).json({Error: 'No hay licitaciones'})
+            res.status(200).json(biddings)
             return
         }
         res.status(200).json(biddings);

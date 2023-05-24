@@ -4,11 +4,9 @@ const path = require('path');
 const ctrl = {};
 
 ctrl.getType = (req, res) => {  
-    console.log('typeservice')
     try {
         let types = fs.readFileSync(path.join(__dirname,'..','data','biddingServiceTypes.txt'), 'utf8')
         .toString().split("\r\n");
-        console.log(types)
         res.status(200).json(types.filter(type => type !== ''))
     } 
     catch (error) {
@@ -20,7 +18,6 @@ ctrl.getType = (req, res) => {
 
 
 ctrl.saveType = (req, res) => {
-
     try {
         fs.appendFileSync(path.join(__dirname,'..','data','biddingServiceTypes.txt'),  req.query.data + '\r\n' );
         res.status(200).json()

@@ -1,11 +1,10 @@
 const ctrl = {}
 const Contractor = require('../models/contractor');
 
-
+//Busca todos los contratistas de un tipo, si son de servicios o de obras. 
 ctrl.index = async (req, res) => {
-    console.log(req.query.type)
     try {
-        let contractor = await Contractor.find({Active: true, Type: req.query.type});
+        let contractor = await Contractor.find({Active: true, Type: req.query.type}).sort({Name: 'asc'});
         if(contractor.length === 0){
             res.status(200).json([{msj: 'lista de contractor vacia'}])
             return

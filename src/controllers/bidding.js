@@ -26,10 +26,9 @@ ctrl.index = async (req, res) => {
 };
 
 ctrl.create = async (req, res) => {
+    console.log("create ", req.body)
     let reqBidding = req.body.bidding;
-    console.log(req.body);
     reqBidding.Contractor == "" ?  delete reqBidding.Contractor : 0 
-    console.log('despues delete', req.body);
     try {
         savedBid = await new Bidding(req.body.bidding).save();
         res.status(200).json(savedBid);
@@ -42,7 +41,8 @@ ctrl.create = async (req, res) => {
 };
 
 ctrl.edit = async (req, res) => {
-    console.log(req.body)
+    console.log("Edit ", req.body)
+    req.body.data.Contractor == "" ?  delete req.body.data.Contractor : 0 
     try {
         let savedBidding = await Bidding.findByIdAndUpdate(req.body.id, req.body.data, {new: true}).exec()
         res.status(200).json(savedBidding)
@@ -54,7 +54,7 @@ ctrl.edit = async (req, res) => {
 },
 
 ctrl.delete = async (req, res) => {
-    console.log(req.body)
+    console.log("delete ", req.body)
     try {
         let savedBidding = await Bidding.findByIdAndUpdate(req.body.id, {Active: false}, {new: true}).exec()
         res.status(200).json(savedBidding)
