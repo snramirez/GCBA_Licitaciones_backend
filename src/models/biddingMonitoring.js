@@ -46,6 +46,7 @@ biddingMonitoringSchema.set('toJSON', {getters: true})
 bidQuantitySchema.set('toObject', {getters: true})
 bidQuantitySchema.set('toJSON', {getters: true})
 
+
 function getPrice(num){
     return (num/100).toFixed(2)
 }

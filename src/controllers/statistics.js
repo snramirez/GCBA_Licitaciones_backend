@@ -140,28 +140,37 @@ ctrl.biddingByContractor = async (req, res) => {
 //Input: Budget Range
 //Output: Array of bidding
 ctrl.budget = async (req, res) => {
-    let botBudget = req.query.botBudget;
-    let topBudget = req.query.topBudget;
+    //Mongoose dont run the getter when use $gte and $lte ¯\_(ツ)_/¯
+    let botBudget = req.query.botBudget * 100;
+    let topBudget = req.query.topBudget * 100;
+
     let startDate = req.query.startDate;
     let finishDate = req.query.finishDate;
     
     let query = {}
     if(req.query.budgetType == 'OfficialBudget'){
         query = {
-            OfficialBudget: {$gte: botBudget, $lte: topBudget}
+            Active:true,
+            OfficialBudget: {$gte: botBudget, $lte: topBudget},
+            CallDate: {$gte: startDate, $lte: finishDate}
         }
     }
     else{
         query = {
-            AllocatedBudget: {$gte: botBudget, $lte: topBudget}
+            Active:true,
+            AllocatedBudget: {$gte: botBudget, $lte: topBudget},
+            ContractDate: {$gte: startDate, $lte: finishDate}
         }
     }
 
+    console.log(query)
+    
+
     try{
-        let biddings = await Bidding.find({ContractDate: {$gte: startDate, $lte: finishDate}, OfficialBudget: {$gte: botBudget, $lte: topBudget}}).exec()
+        let biddings = await Bidding.find(query).exec()
         console.log("🚀 ~ file: statistics.js ~ line 11 ~ ctrl.statusDate= ~ biddings", biddings)
         if(biddings.length === 0){
-            res.status(200).json({Error: 'No hay licitaciones'})
+            res.status(200).json(biddings)
             return
         }
         res.status(200).json(biddings);
