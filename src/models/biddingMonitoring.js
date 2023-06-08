@@ -2,8 +2,9 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const bidQuantitySchema = new Schema({
-    Contractor: {type: Schema.Types.ObjectId, ref: 'contractor'},
-    Quantity: {type: Number, get: getPrice, set: setPrice, default: 0}
+    Contractor: [{type: Schema.Types.ObjectId, ref: 'contractor'}],
+    Quantity: {type: Number, get: getPrice, set: setPrice, default: 0},
+    Winner: {type: Boolean, default: false}
 });
 
 const biddingMonitoringSchema = new Schema({
