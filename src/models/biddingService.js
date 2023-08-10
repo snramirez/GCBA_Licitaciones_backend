@@ -12,6 +12,7 @@ const biddingExtensionSchema = new Schema({
     Budget: {type: Number, get: getPrice, set: setPrice, default: 0}
 });
 
+
 const biddingServiceSchema = new Schema({
     BiddingNumber: {type: String},
     Record: {type: String},
@@ -43,10 +44,12 @@ const biddingServiceSchema = new Schema({
     SPO: {type: Number},
     Contractor: {type: Schema.Types.ObjectId, ref: 'contractor'},
     ContractDate: {type: Date},
+    PurchaseOrder: {type: String},
+    DueDatePO: {type: Date},
     Extension: {type: Boolean, default: false}, //new
-    ExtensionData: biddingExtensionSchema, //new
+    ExtensionData: [biddingExtensionSchema], //new
     Prorogation: {type: Boolean, default: false}, //new
-    ProrogationExpired: {type: Date}, //new
+    ProrogationExpired: [{type: Date}], //new
     ProcedureDays: {type: String}, 
     Observations: {type: String},
     Active: {type: Boolean, default: true}
