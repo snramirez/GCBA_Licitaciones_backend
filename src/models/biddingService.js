@@ -46,11 +46,9 @@ const biddingServiceSchema = new Schema({
     ContractDate: {type: Date},
     PurchaseOrder: {type: String},
     DueDatePO: {type: Date},
-    Extension: {type: Boolean, default: false}, //new
+    PurchaseOrderMode: {type: String},
     ExtensionData: [biddingExtensionSchema], //new
-    Prorogation: {type: Boolean, default: false}, //new
     ProrogationExpired: [{type: Date}], //new
-    ProcedureDays: {type: String}, 
     Observations: {type: String},
     Active: {type: Boolean, default: true}
 },{timestamps: true});
