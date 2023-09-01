@@ -13,7 +13,6 @@ const biddingProrogationSchema = new Schema({
 });
 
 const bidQuantitySchema = new Schema({
-    Code: {type: String},
     Contractor: [{type: Schema.Types.ObjectId, ref: 'contractor'}],
     Quantity: {type: Number, get: getPrice, set: setPrice, default: 0},
     Winner: {type: Boolean, default: false},
