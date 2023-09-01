@@ -1,17 +1,30 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const bidQuantitySchema = new Schema({
-    Contractor: {type: Schema.Types.ObjectId, ref: 'contractor'},
-    Quantity: {type: Number, get: getPrice, set: setPrice, default: 0}
-});
-
 const biddingExtensionSchema = new Schema({
     ExtensionCode: {type: String},
     ExtensionDate: {type: Date},
     Budget: {type: Number, get: getPrice, set: setPrice, default: 0}
 });
 
+const biddingProrogationSchema = new Schema({
+    ProrrogationCode: {type: String},
+    ProrogationDate: {type: Date},
+});
+
+const bidQuantitySchema = new Schema({
+    Code: {type: String},
+    Contractor: [{type: Schema.Types.ObjectId, ref: 'contractor'}],
+    Quantity: {type: Number, get: getPrice, set: setPrice, default: 0},
+    Winner: {type: Boolean, default: false},
+    Observations: {type: String},
+    ExtensionData: [biddingExtensionSchema],
+    ProrogationExpired: [biddingProrogationSchema],
+    ContractDate: {type: Date},
+    PurchaseOrder: {type: String},
+    DueDatePO: {type: Date},
+    AllocatedBudget : {type: Number, get: getPrice, set: setPrice, default: 0},
+});
 
 const biddingServiceSchema = new Schema({
     BiddingNumber: {type: String},
@@ -42,13 +55,7 @@ const biddingServiceSchema = new Schema({
     ApproveDate: {type: Date},
     AllocatedBudget : {type: Number, get: getPrice, set: setPrice, default: 0},
     SPO: {type: Number},
-    Contractor: {type: Schema.Types.ObjectId, ref: 'contractor'},
-    ContractDate: {type: Date},
-    PurchaseOrder: {type: String},
-    DueDatePO: {type: Date},
     PurchaseOrderMode: {type: String},
-    ExtensionData: [biddingExtensionSchema], //new
-    ProrogationExpired: [{type: Date}], //new
     Observations: {type: String},
     Active: {type: Boolean, default: true}
 },{timestamps: true});
