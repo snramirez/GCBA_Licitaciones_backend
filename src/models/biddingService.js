@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 const biddingExtensionSchema = new Schema({
     ExtensionCode: {type: String},
     ExtensionDate: {type: Date},
+    PurchaseOrder: {type: String},
     Budget: {type: Number, get: getPrice, set: setPrice, default: 0}
 });
 
