@@ -70,6 +70,9 @@ ctrl.statusCount = async (req, res) => {
                 $or: [
                     {CallDate:{$lte: finishDate, $gte: startDate}},
                     {ContractDate:{$lte: finishDate, $gte: startDate}},
+                    {BidOpeningDate:{$lte: finishDate, $gte: startDate}},
+                    {PreAdjudgmentActDate:{$lte: finishDate, $gte: startDate}},
+                    {ApproveDate:{$lte: finishDate, $gte: startDate}},
                 ],
                 Active:true
             }},
@@ -100,6 +103,7 @@ ctrl.contractor = async (req, res) => {
         let ids = await Bidding.aggregate([
             {$unwind: "$BidQuantity"},
             {$match:{
+                Active:true,
                 ContractDate:{$lte: finishDate, $gte: startDate},
                 $and:[
                     {$expr:{$in:[{$toObjectId:contractor},"$BidQuantity.Contractor"]}},
@@ -107,28 +111,11 @@ ctrl.contractor = async (req, res) => {
                 ]
             }},
             {$group:{
-                _id: "$_id",
-                // res: {$push: "$$ROOT"}
+                _id: "$_id"
             }}
         ]).exec()
 
         let biddings = await Bidding.find({_id: {$in: ids}}).exec()
-
-
-        // let biddings = await Bidding.aggregate().unwind("BidQuantity")
-        // .redact(
-        //     {$in: [contractorArray, "$BidQuantity.Contractor"]},
-        //     "$$KEEP",
-        //     "$$PRUNE"
-        // )
-        // {$redact:{
-        //     $cond:{
-        //         if: { $in:[contractor, "$BidQuantity.Contractor"]},
-        //         then: "$$KEEP",
-        //         else: "$$PRUNE"
-        //     },
-
-
         console.log("ids", ids)
         console.log("pliegos", biddings)
         if(biddings.length === 0){
