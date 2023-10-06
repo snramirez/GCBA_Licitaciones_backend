@@ -97,18 +97,23 @@ ctrl.contractor = async (req, res) => {
     let contractor = req.query.contractor
   
     try{
-        let biddings = await Bidding.aggregate([
+        let ids = await Bidding.aggregate([
             {$unwind: "$BidQuantity"},
             {$match:{
-                $expr:{
-                    $in:[{$toObjectId:contractor},"$BidQuantity.Contractor"],
-                }
+                ContractDate:{$lte: finishDate, $gte: startDate},
+                $and:[
+                    {$expr:{$in:[{$toObjectId:contractor},"$BidQuantity.Contractor"]}},
+                    {$expr: {$eq:["$BidQuantity.Winner", true]}}   
+                ]
             }},
             {$group:{
-                _id: "$BidQuantity._id",
-                res: {$push: "$$ROOT"}
+                _id: "$_id",
+                // res: {$push: "$$ROOT"}
             }}
         ]).exec()
+
+        let biddings = await Bidding.find({_id: {$in: ids}}).exec()
+
 
         // let biddings = await Bidding.aggregate().unwind("BidQuantity")
         // .redact(
@@ -124,7 +129,8 @@ ctrl.contractor = async (req, res) => {
         //     },
 
 
-        console.log("🚀 ~ file: statistics.js ~ line 11 ~ ctrl.statusDate= ~ biddings", biddings)
+        console.log("ids", ids)
+        console.log("pliegos", biddings)
         if(biddings.length === 0){
             res.status(200).json({Error: 'No hay licitaciones'})
             return
