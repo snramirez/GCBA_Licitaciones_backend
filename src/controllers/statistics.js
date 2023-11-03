@@ -14,9 +14,20 @@ ctrl.statusDate = async (req, res) => {
     let finishDate = req.query.finishDate;
 
     try{
-        let biddings = await Bidding.find({Active: true, Status: status, CallDate: {$gte: startDate, $lte: finishDate}}).exec()
+        // let biddings = await Bidding.find({Active: true, Status: status, CallDate: {$gte: startDate, $lte: finishDate}}).exec()
+        let biddings = await Bidding.find({
+            Status: status, 
+            Active: true, 
+            $or:[
+            {CallDate:{$lte: finishDate, $gte: startDate}},
+            {ContractDate:{$lte: finishDate, $gte: startDate}},
+            {BidOpeningDate:{$lte: finishDate, $gte: startDate}},
+            {PreAdjudgmentActDate:{$lte: finishDate, $gte: startDate}},
+            {ApproveDate:{$lte: finishDate, $gte: startDate}}
+            ]
+        }).exec()
         if(biddings.length === 0){
-            res.status(200).json({Error: 'No hay licitaciones'})
+            res.status(200).json([{Error: 'No hay licitaciones'}])
             return
         }
         res.status(200).json(biddings);
@@ -37,7 +48,13 @@ ctrl.biddingType = async (req, res) => {
     try{
         let biddings = await Bidding.aggregate([
             {$match:{
-                ContractDate:{$lte: finishDate, $gte: startDate},
+                $or: [
+                    {CallDate:{$lte: finishDate, $gte: startDate}},
+                    {ContractDate:{$lte: finishDate, $gte: startDate}},
+                    {BidOpeningDate:{$lte: finishDate, $gte: startDate}},
+                    {PreAdjudgmentActDate:{$lte: finishDate, $gte: startDate}},
+                    {ApproveDate:{$lte: finishDate, $gte: startDate}},
+                ],
                 Active: true
             }},
             {$group:{
@@ -91,10 +108,10 @@ ctrl.statusCount = async (req, res) => {
         console.log(err); 
     }
 };
-//Recibe un contratista y un rango de fechas, devuelve la cantidad de licitaciones que gano ese contratista
-//Input: Contractor and date range
-//Output: Object with quantity of bidding for that contractor. ({bidding: 5})
-ctrl.contractor = async (req, res) => {
+//Recibe un contratista y un rango de fechas, y devuelve todos los pliegos de ese contratista en el rango especificado
+//Input: Contractor and Date range
+//Output: Array of bidding
+ctrl.biddingByContractor = async (req, res) => {
     let startDate = new Date(req.query.startDate);
     let finishDate = new Date(req.query.finishDate);
     let contractor = req.query.contractor
@@ -119,7 +136,7 @@ ctrl.contractor = async (req, res) => {
         console.log("ids", ids)
         console.log("pliegos", biddings)
         if(biddings.length === 0){
-            res.status(200).json({Error: 'No hay licitaciones'})
+            res.status(200).json([{Error: 'No hay licitaciones'}])
             return
         }
         res.status(200).json(biddings);
@@ -129,10 +146,11 @@ ctrl.contractor = async (req, res) => {
     }
 };
 
-//Recibe un contratista y un rango de fechas, y devuelve todos los pliegos de ese contratista en el rango especificado
-//Input: Contractor and Date range
-//Output: Array of bidding
-ctrl.biddingByContractor = async (req, res) => {
+//Recibe un contratista y un rango de fechas, devuelve la cantidad de licitaciones que gano ese contratista
+//Input: Contractor and date range
+//Output: Object with quantity of bidding for that contractor. ({bidding: 5})
+//FUERA DE USO, NO HACE ESO QUE DICE ARRIBA, SE DEJA PARA FUTURO USO
+ctrl.contractor = async (req, res) => {
     let contractor = req.query.contractor;
     let startDate = req.query.startDate;
     let finishDate = req.query.finishDate;
@@ -158,7 +176,6 @@ ctrl.budget = async (req, res) => {
     //Mongoose dont run the getter when use $gte and $lte ¯\_(ツ)_/¯
     let botBudget = req.query.botBudget * 100;
     let topBudget = req.query.topBudget * 100;
-
     let startDate = req.query.startDate;
     let finishDate = req.query.finishDate;
     
@@ -178,12 +195,8 @@ ctrl.budget = async (req, res) => {
         }
     }
 
-    console.log(query)
-    
-
     try{
         let biddings = await Bidding.find(query).exec()
-        console.log("🚀 ~ file: statistics.js ~ line 11 ~ ctrl.statusDate= ~ biddings", biddings)
         if(biddings.length === 0){
             res.status(200).json(biddings)
             return
